@@ -8,7 +8,7 @@ function computerPlay() {
   let gameOptions = ['Rock', 'Paper', 'Scissors'];
 
   // use the random no as index to get a random value
-  let = gameOptions[randomNumber];
+  let computerChosenOption = gameOptions[randomNumber];
 
   // return it
   return computerChosenOption;
@@ -17,11 +17,13 @@ function computerPlay() {
 // function that will play a single round of rock paper scissors
 // parameters: playerSelection, computerSelection
 // return a string: "You Lose! Paper beats Rock"
+//
 function playRound(playerSelection, computerSelection) {
-  // convert inputs to lowercase so they are case insensitive
+  // convert user input to capital case
 
-  playerSelection = playerSelection.toLowerCase();
-  computerSelection = computerSelection.toLowerCase();
+  playerSelection =
+    playerSelection.charAt(0).toUpperCase() +
+    playerSelection.substring(1).toLowerCase();
 
   // compare the selections
   /* 
@@ -30,24 +32,36 @@ function playRound(playerSelection, computerSelection) {
     else
         if 
         player selection = rock, computer selection = paper
-        > computer wins
+        > computer wins ~ false
         player selection = rock, computer selection = scissor
-        > player wins 
+        > player wins ~ true
 
         player selection = paper, computer selection = rock
-        > player wins
+        > player wins ~ true
         player selection = paper, computer selection = scissor
-        > computer wins
+        > computer wins ~ false
         
         player selection = scissor, computer selection = rock
-        > computer wins
-        
+        > computer wins ~ false
         player selection = scissor, computer selection = paper
-        > player wins
+        > player wins ~ true
 
 
-        rock < paper
-        rock > scissor
-        scissor > paper
     */
+
+  if (playerSelection === computerSelection) {
+    return 'There is a tie!';
+  } else {
+    if (
+      (playerSelection === 'rock' && computerSelection === 'scissor') ||
+      (playerSelection === 'paper' && computerSelection === 'rock') ||
+      (playerSelection === 'scissor' && computerSelection === 'paper')
+    ) {
+      return `You Win! ${playerSelection} beats ${computerSelection}`;
+    } else {
+      return `You Lose! ${computerSelection} beats ${playerSelection}`;
+    }
+  }
 }
+
+console.log(playRound('scissor', computerPlay()));
