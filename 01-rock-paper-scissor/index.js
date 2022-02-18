@@ -5,7 +5,7 @@ function computerPlay() {
   let randomNumber = Math.floor(Math.random() * 3);
 
   // store rock paper scissor in an array
-  let gameOptions = ['Rock', 'Paper', 'Scissors'];
+  let gameOptions = ['Rock', 'Paper', 'Scissor'];
 
   // use the random no as index to get a random value
   let computerChosenOption = gameOptions[randomNumber];
@@ -50,18 +50,70 @@ function playRound(playerSelection, computerSelection) {
     */
 
   if (playerSelection === computerSelection) {
-    return 'There is a tie!';
+    alert('There is a tie!');
+    return 'Tie';
   } else {
     if (
-      (playerSelection === 'rock' && computerSelection === 'scissor') ||
-      (playerSelection === 'paper' && computerSelection === 'rock') ||
-      (playerSelection === 'scissor' && computerSelection === 'paper')
+      (playerSelection === 'Rock' && computerSelection === 'Scissor') ||
+      (playerSelection === 'Paper' && computerSelection === 'Rock') ||
+      (playerSelection === 'Scissor' && computerSelection === 'Paper')
     ) {
-      return `You Win! ${playerSelection} beats ${computerSelection}`;
+      alert(`You Won! ${playerSelection} beats ${computerSelection}`);
+      return 'Player';
+
+      alert(`You Win! ${playerSelection} beats ${computerSelection}`);
     } else {
-      return `You Lose! ${computerSelection} beats ${playerSelection}`;
+      alert(`You Lose! ${computerSelection} beats ${playerSelection}`);
+      return 'Computer';
     }
   }
 }
 
-console.log(playRound('scissor', computerPlay()));
+// console.log(playRound('scissor', computerPlay()));
+
+// new function: game()
+// game will call playRound() function to play a 5 round game
+// it will also keep score and will report a winner or loser at the end
+// use console.log() to display the result of each round and the winner at the end
+// use prompt() to get input from the user
+
+// you might have to change the return value to something more useful
+
+// game function will call playRound()  5 times using a for loop
+// and set the scores of each player to 0
+// in each loop
+// we prompt the user to give its input and generate an output from computerPlay()
+// we then feed this to playRound() and expect a useful output
+// we can console log the result of each round and update the scores of winning player
+// once the loop is finished, we can compare the score and return the winner
+
+function game(games = 5) {
+  let playerScore = 0;
+  let computerScore = 0;
+
+  for (let i = 0; i < games; i++) {
+    let winner = playRound(prompt('Rock, Paper or Scissor?'), computerPlay());
+
+    // Update scores
+    if (winner === 'Player') {
+      playerScore += 1;
+    } else if (winner === 'Computer') {
+      computerScore += 1;
+    }
+
+    // Declare the score
+    console.log(
+      `Player Score: ${playerScore}, Computer Score ${computerScore}`
+    );
+  }
+  // declare the winner
+  if (playerScore > computerScore) {
+    console.log('You Won! Congratulations!');
+  } else if (playerScore < computerScore) {
+    console.log('Computer Won! Better luck next time.');
+  } else {
+    console.log('Uh Oh! There is a tie.');
+  }
+}
+
+game();
